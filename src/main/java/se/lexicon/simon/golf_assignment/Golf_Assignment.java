@@ -15,14 +15,11 @@ public class Golf_Assignment {
 	
 //	 The player should be able to launch the golf ball from its initial location,
 //	with a given angle (degrees from the ground up) and velocity (m/s at the start of the ball’s arc).
-
-//	position = Math.abs(position);
-	
 	
 	public static void main (String[]args) {
 		
 		double goal = 0;
-		double Position = 450; // do i want to modifiable?
+		double position = 450; // do i want to make modifiable?
 		
 		int tries = 0;
 		int swing;
@@ -34,11 +31,11 @@ public class Golf_Assignment {
 		
 		givenangle = 45;
 		givenvelocity = 32;
-		calculateDistance(givenangle, givenvelocity);
+		calculateHit(givenangle, givenvelocity);
+
+		calculateDistance(position, givenangle, givenvelocity);
 		
-		public static void 
-		
-		if(newPosition == goal) {
+		if(position == goal) {
 			System.out.println("You Made It, Congratulations!");
 			break;
 		}
@@ -58,13 +55,18 @@ public class Golf_Assignment {
 		
 	}
 	
-	public static double calculate (double distance, ) {
+	public static double calculateDistance (double position, double givenangle, double givenvelocity) {
+		double distance = calculateHit(givenangle, givenvelocity);
+		position = position - distance;
+		position = Math.abs(position);
+		
+		return position;
 		
 	}
 	
 	
 	
-	public static double calculateDistance (double angle, double velocity) {
+	public static double calculateHit (double angle, double velocity) {
 		double gravity = 9.8;
 		double angleInRadians = (Math.PI / 180) * angle;
 		double distance = Math.pow(velocity, 2.0) / gravity * Math.sin(2 * angleInRadians);
@@ -74,12 +76,13 @@ public class Golf_Assignment {
 	
 	public static double roundReportOngoing() {
 		
+		
 	}
 	
 	public static double Scoreboard() {
 		
+		
 	}
-	
 	
 	
 	public static double distanceholder( ) {

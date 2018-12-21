@@ -14,7 +14,7 @@ public class Golf_Assignment_Test {
 		
 		double expectedDistance = 320;
 		
-		assertEquals(expectedDistance, Golf_Assignment.calculateDistance(givenAngle, givenVelocity), 0);
+		assertEquals(expectedDistance, Golf_Assignment.calculateHit(givenAngle, givenVelocity), 0);
 	}
 	
 //	@Test
