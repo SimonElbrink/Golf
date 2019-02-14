@@ -3,54 +3,92 @@ package se.lexicon.simon.golf_assignment;
 import java.util.Scanner;
 
 public class Golf_Assignment {
-// Normal / impossible mode ? 
-	
-//	Resources:
-//		Algorithms:
-//		Angle In Radians: (Math.PI / 180) * angle
-//		Distance: Math.pow(velocity, 2) / GRAVITY * Math.sin(2 * angleInRadians)
-//		Gravity is equal to 9.8
-//		Tolerance is 0.1 M. (10 cm )	math.round(x * 10.0) / 10.0
-//		Example: At 45 Degrees and 56 m/s, the ball should travel 320 meters.
-	
-//	 The player should be able to launch the golf ball from its initial location,
-//	with a given angle (degrees from the ground up) and velocity (m/s at the start of the ball’s arc).
-	
+
 	public static void main (String[]args) {
 		
 		double goal = 0;
-		double position = 450; // do i want to make modifiable?
+		double position = 450;
 		
-		int tries = 0;
-		int swing;
-		int totalswings;
+		int swing = 0;
+		int maxSwing = 7;
 		
-		double givenangle;
-		double givenvelocity;
+		double givenangle = 0;
+		double givenvelocity = 0;
 		
-		
-		givenangle = 45;
-		givenvelocity = 32;
-		calculateHit(givenangle, givenvelocity);
+		boolean isRunning = true;
+		boolean innerLoop = true;
 
-		calculateDistance(position, givenangle, givenvelocity);
+		System.out.println("distance to goal:" + position);
+		System.out.println("Max Tries :" + maxSwing);
 		
-		if(position == goal) {
-			System.out.println("You Made It, Congratulations!");
-			break;
+		while (isRunning) {
+			
+			System.out.print("Enter Angle of swing: ");
+			givenangle = getInterger();
+
+			
+			System.out.print("Enter Velocity of swing: ");
+			givenvelocity = getInterger();
+
+			while (innerLoop) {
+				if (givenangle <= 0 || givenangle >= 90) {
+					System.out.println("Angle invalid must be between 1-89°");
+					System.out.print("Enter Angle of swing: ");
+					givenangle = getInterger();
+				} 
+				else if (givenvelocity <= 0 || givenvelocity >= 94) {
+					System.out.println("Velocity invalid must be between 1-93");
+					System.out.print("Enter Velocity of swing: ");
+					givenvelocity = getInterger();
+				} else
+					innerLoop = false;
+			}
+
+			innerLoop = true;
+			position = calculateDistance(position, givenangle, givenvelocity);
+			position = Math.round(position);
+			position = Math.abs(position);
+			
+			swing++;
+		if(position <= 10)
+				position = 0;
+			
+			System.out.println("distance to goal:" + position);
+			System.out.println("Swings done: " + swing);
+
+			if (position == goal) {
+				System.out.println("You Made It, Congratulations!");
+				isRunning = playAgain();
+				position = 450;
+				swing = 0;
+			} else if (position > 450) {
+				System.out.println("The Ball Have Traveled Of The Course");
+				isRunning = playAgain();
+				position = 450;
+				swing = 0;
+			} else if (swing >= maxSwing) {
+				System.out.println("Sorry, To Many Tries");
+				isRunning = playAgain();
+				position = 450;
+				swing = 0;
+			}
 		}
-		else if () {
+	}
 	
-			System.out.println("The Ball Have Traveled Of The Course");
-			break;
-		}
-		else if(tries >= 7){
-			System.out.println("Sorry, To Many Tries");
-			break;
-		} 
-		else {
-			tries++;
-			round(); //?
+//__________________________________________________________________________________________________________________
+	
+	public static boolean playAgain () {
+		System.out.println("Try again?");
+		System.out.print("Y/N: ");
+		
+		String userInput = getStringFromUser().toUpperCase();
+		
+		switch (userInput) {
+		case "Y":			
+			return true;
+			
+		default:
+			return false;
 		}
 		
 	}
@@ -58,14 +96,11 @@ public class Golf_Assignment {
 	public static double calculateDistance (double position, double givenangle, double givenvelocity) {
 		double distance = calculateHit(givenangle, givenvelocity);
 		position = position - distance;
-		position = Math.abs(position);
-		
+			
 		return position;
 		
 	}
-	
-	
-	
+		
 	public static double calculateHit (double angle, double velocity) {
 		double gravity = 9.8;
 		double angleInRadians = (Math.PI / 180) * angle;
@@ -74,28 +109,7 @@ public class Golf_Assignment {
 		return distance;
 	}
 	
-	public static double roundReportOngoing() {
-		
-		
-	}
-	
-	public static double Scoreboard() {
-		
-		
-	}
-	
-	
-	public static double distanceholder( ) {
-		
-		String[] distancetraveld = new String[7]; //
-		
-	}
-	
-	public static void printStringArray(String [] toPrint) {
-		for (String s : toPrint) {
-			System.out.println(s);
-		}
-	}
+//________________________________________________________________________________________________________________
 	
 	public static Scanner scanner = new Scanner(System.in);
 	
